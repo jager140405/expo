@@ -2,7 +2,7 @@
 
 // https://codepen.io/lila1984/pen/zYBLVKb
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 const CustomThreeJSComponent = ({}: { dom?: import('expo/dom').DOMProps }) => {
