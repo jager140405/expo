@@ -44,15 +44,12 @@ function expoWebviewDirectiveProxy(api) {
                 if (isProduction) {
                     // MUST MATCH THE EXPORT COMMAND!
                     const hash = crypto_1.default.createHash('sha1').update(outputKey).digest('hex');
+                    const outputName = `www.bundle/${hash}.html`;
                     if (platform === 'ios') {
-                        const outputName = `www.bundle/${hash}.html`;
-                        proxyModule = [`const proxy = { uri: ${JSON.stringify(outputName)} };`];
+                        proxyModule = [`const proxy = { uri: "${outputName}" };`];
                     }
                     else if (platform === 'android') {
-                        const outputName = `www/${hash}.html`;
-                        proxyModule = [
-                            `const proxy = { uri: "file:///android_asset" + ${JSON.stringify(outputName)} };`,
-                        ];
+                        proxyModule = [`const proxy = { uri: "file:///android_asset/${outputName}" };`];
                     }
                     else {
                         throw new Error('production "use dom" directive is not supported yet for platform: ' + platform);
@@ -68,6 +65,7 @@ function expoWebviewDirectiveProxy(api) {
                     ? `
                 import React from 'react';
               import { WebView } from 'expo/dom/internal';
+
               export default React.forwardRef((props, ref) => {
                 return React.createElement(WebView, { ref, ...props, $$source: proxy });
             });

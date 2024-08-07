@@ -80,12 +80,17 @@ export async function exportEmbedAsync(projectRoot: string, options: Options) {
 
   fs.mkdirSync(path.dirname(options.bundleOutput), { recursive: true, mode: 0o755 });
 
+  // On Android, Webview proxy files should write to the assets directory instead of the res directory.
+  // We use the bundleOutput directory to get the assets directory.
+  const webviewProxyOutputDir =
+    options.platform === 'android' ? path.dirname(options.bundleOutput) : options.assetsDest;
+
   // Persist bundle and source maps.
   await Promise.all([
     output.save(bundle, options, Log.log),
 
     // Write webview proxy files.
-    options.assetsDest ? persistMetroFilesAsync(files, options.assetsDest) : null,
+    webviewProxyOutputDir ? persistMetroFilesAsync(files, webviewProxyOutputDir) : null,
     // NOTE(EvanBacon): This may need to be adjusted in the future if want to support baseUrl on native
     // platforms when doing production embeds (unlikely).
     options.assetsDest
@@ -151,7 +156,7 @@ export async function exportEmbedBundleAndAssetsAsync(
 
     const files: ExportAssetMap = new Map();
 
-    const rootDir = options.platform === 'android' ? `www` : `www.bundle`;
+    const rootDir = 'www.bundle';
 
     await Promise.all(
       bundles.artifacts.map(async (artifact) => {

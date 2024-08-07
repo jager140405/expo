@@ -49,16 +49,12 @@ export function expoWebviewDirectiveProxy(api: ConfigAPI): babel.PluginObj {
         if (isProduction) {
           // MUST MATCH THE EXPORT COMMAND!
           const hash = crypto.createHash('sha1').update(outputKey).digest('hex');
+          const outputName = `www.bundle/${hash}.html`;
 
           if (platform === 'ios') {
-            const outputName = `www.bundle/${hash}.html`;
-            proxyModule = [`const proxy = { uri: ${JSON.stringify(outputName)} };`];
+            proxyModule = [`const proxy = { uri: "${outputName}" };`];
           } else if (platform === 'android') {
-            // TODO: This is a guess.
-            const outputName = `www/${hash}.html`;
-            proxyModule = [
-              `const proxy = { uri: "file:///android_asset" + ${JSON.stringify(outputName)} };`,
-            ];
+            proxyModule = [`const proxy = { uri: "file:///android_asset/${outputName}" };`];
           } else {
             throw new Error(
               'production "use dom" directive is not supported yet for platform: ' + platform
