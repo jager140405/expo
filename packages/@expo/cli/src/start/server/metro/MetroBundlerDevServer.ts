@@ -769,12 +769,7 @@ export class MetroBundlerDevServer extends BundlerDevServer {
         // Generate a unique entry file for the webview.
         const generatedEntry = await this.getWebviewProxyEntry(file);
 
-        // Use public URL for dev + physical devices.
-        // e.g. `http://111.222.333.444:8081`
-        const publicUrl = this.urlCreator?.constructUrl({
-          hostType: 'lan',
-          scheme: 'http',
-        })!;
+        const requestUrlBase = `http://${req.headers.host}`;
         // Create the script URL
         const metroUrl = new URL(
           createBundleUrlPath({
@@ -788,9 +783,7 @@ export class MetroBundlerDevServer extends BundlerDevServer {
             // Required for ensuring bundler errors are caught in the root entry / async boundary and can be recovered from automatically.
             lazy: true,
           }),
-          // TODO: This doesn't work on all public wifi configurations.
-          // publicUrl
-          this.getDevServerUrlOrAssert()
+          requestUrlBase
         ).toString();
 
         res.statusCode = 200;
