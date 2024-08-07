@@ -1,3 +1,5 @@
+'use dom';
+
 import '@/global.css';
 
 import { StyleNoSelect } from 'expo/dom';
