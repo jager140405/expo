@@ -206,7 +206,7 @@ export default function Dashboard() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
                   <img
-                    src="/placeholder-user.jpg"
+                    src={`${process.env.EXPO_DOM_BASE_URL}/placeholder-user.jpg`}
                     width={36}
                     height={36}
                     alt="Avatar"
@@ -293,7 +293,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>
@@ -328,7 +328,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>
@@ -363,7 +363,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>
@@ -398,7 +398,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>
@@ -433,7 +433,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>
@@ -468,7 +468,7 @@ export default function Dashboard() {
                               alt="Product image"
                               className="aspect-square rounded-md object-cover"
                               height="64"
-                              src="/placeholder.jpg"
+                              src={`${process.env.EXPO_DOM_BASE_URL}/placeholder.jpg`}
                               width="64"
                             />
                           </TableCell>

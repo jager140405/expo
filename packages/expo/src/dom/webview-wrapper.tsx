@@ -68,6 +68,7 @@ const RawWebView = React.forwardRef(({ dom, $$source, ...marshallProps }: any, r
       allowsFullscreenVideo
       {...dom}
       injectedJavaScriptBeforeContentLoaded={[
+        createInjectScripts(),
         // On first mount, inject `$$EXPO_INITIAL_PROPS` with the initial props.
         `window.$$EXPO_INITIAL_PROPS = ${JSON.stringify(smartActions)};true;`,
         dom?.injectedJavaScriptBeforeContentLoaded,
@@ -159,6 +160,20 @@ function serializeError(error: any) {
     };
   }
   return error;
+}
+
+function createInjectScripts() {
+  return `(function injectEnvs() {
+let domBaseUrl = '';
+if (window.location.protocol === 'file:') {
+  domBaseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+}
+window.process = window.process || {};
+window.process.env = {
+  ...(window.process.env || {}),
+  EXPO_DOM_BASE_URL: domBaseUrl,
+};
+})();`;
 }
 
 export function StyleNoSelect() {

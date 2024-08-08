@@ -32,6 +32,7 @@ import { removeAsync } from '../../utils/dir';
 import { setNodeEnv } from '../../utils/nodeEnv';
 import { isEnableHermesManaged } from '../exportHermes';
 import { persistMetroAssetsAsync } from '../persistMetroAssets';
+import { copyPublicFolderAsync } from '../publicFolder';
 import {
   BundleAssetWithFileHashes,
   ExportAssetMap,
@@ -91,6 +92,15 @@ export async function exportEmbedAsync(projectRoot: string, options: Options) {
 
     // Write webview proxy files.
     webviewProxyOutputDir ? persistMetroFilesAsync(files, webviewProxyOutputDir) : null,
+
+    // Copy public folder
+    webviewProxyOutputDir
+      ? copyPublicFolderAsync(
+          path.resolve(projectRoot, env.EXPO_PUBLIC_FOLDER),
+          path.join(webviewProxyOutputDir, 'www.bundle')
+        )
+      : null,
+
     // NOTE(EvanBacon): This may need to be adjusted in the future if want to support baseUrl on native
     // platforms when doing production embeds (unlikely).
     options.assetsDest
