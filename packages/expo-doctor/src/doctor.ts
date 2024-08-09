@@ -14,6 +14,7 @@ import { PackageJsonCheck } from './checks/PackageJsonCheck';
 import { PackageManagerVersionCheck } from './checks/PackageManagerVersionCheck';
 import { ProjectSetupCheck } from './checks/ProjectSetupCheck';
 import { ReactNativeDirectoryCheck } from './checks/ReactNativeDirectoryCheck';
+import { StoreCompatibilityCheck } from './checks/StoreCompatibilityCheck';
 import { SupportPackageVersionCheck } from './checks/SupportPackageVersionCheck';
 import { DoctorCheck, DoctorCheckParams, DoctorCheckResult } from './checks/checks.types';
 import { getReactNativeDirectoryCheckEnabled } from './utils/doctorConfig';
@@ -133,6 +134,7 @@ export function getChecksInScopeForProject(exp: ExpoConfig, pkg: PackageJSONConf
     new ProjectSetupCheck(),
     new MetroConfigCheck(),
     new NativeToolingVersionCheck(),
+    new StoreCompatibilityCheck(),
   ];
 
   if (getReactNativeDirectoryCheckEnabled(pkg)) {
